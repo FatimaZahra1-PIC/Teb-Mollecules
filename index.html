@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Point d'ébullition — estimation Joback &amp; PubChem</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>Point d'ébullition d'une molécule</h1>
+    <p>Entrez un SMILES. L'application estime la température d'ébullition (méthode de Joback ou corrélation de secours), la compare à la valeur réelle de PubChem et affiche la molécule en 3D.</p>
+  </header>
+
+  <form id="form" autocomplete="off">
+    <label for="smiles">SMILES de la molécule</label>
+    <div class="row">
+      <input id="smiles" type="text" placeholder="CCO" spellcheck="false" required>
+      <button type="submit" id="go">Analyser</button>
+    </div>
+    <div class="chips" id="chips">
+      <button type="button" data-s="CCO">CCO</button>
+      <button type="button" data-s="CCCO">CCCO</button>
+      <button type="button" data-s="c1ccccc1">c1ccccc1</button>
+      <button type="button" data-s="CC(=O)O">CC(=O)O</button>
+      <button type="button" data-s="CCCCCO">CCCCCO</button>
+      <button type="button" data-s="CCN">CCN</button>
+      <button type="button" data-s="O">O</button>
+      <button type="button" data-s="Fe">Fe</button>
+      <button type="button" data-s="N2">N2</button>
+      <button type="button" data-s="He">He</button>
+    </div>
+  </form>
+
+  <p id="status" role="status"></p>
+
+  <section id="result" hidden>
+    <div class="summary">
+      <div>
+        <span class="k">Molécule</span>
+        <strong id="nom"></strong>
+        <small id="cid"></small>
+      </div>
+      <div>
+        <span class="k">Estimation (<span id="methode"></span>)</span>
+        <strong id="tbEst"></strong>
+      </div>
+      <div>
+        <span class="k">Valeur réelle (PubChem)</span>
+        <strong id="tbReel"></strong>
+      </div>
+      <div>
+        <span class="k">Erreur</span>
+        <strong id="erreur"></strong>
+      </div>
+    </div>
+
+    <div class="viewers">
+      <figure>
+        <canvas id="viewer" width="640" height="520"></canvas>
+        <figcaption>3D : glisser = rotation · molette = zoom</figcaption>
+      </figure>
+      <figure>
+        <img id="img2d" alt="Structure 2D de la molécule" hidden>
+        <figcaption>Structure 2D (PubChem)</figcaption>
+      </figure>
+    </div>
+
+    <details id="detailJoback" open>
+      <summary>Décomposition Joback</summary>
+      <table id="tabJoback"></table>
+    </details>
+  </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
